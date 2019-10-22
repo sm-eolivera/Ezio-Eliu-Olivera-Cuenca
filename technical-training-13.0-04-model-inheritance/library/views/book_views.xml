@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!--      -->
     <record id="book_action" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">library.book</field>
         <field name="view_mode">tree,form</field>
     </record>
     
+<!--   List Book   -->
     <record id="book_view_tree" model="ir.ui.view">
         <field name="name">library.book.tree</field>
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="edition_date"/>
-                <field name="author_ids"/>
-                <field name="publisher_id"/>
+                <field name="x_name"/>
+                <field name="x_edition_date"/>
+                <field name="x_publisher_id"/>
+                <field name="x_book_state"/>
+                  <field name="x_lauthor"/>
             </tree>
         </field>
     </record>
 
-<!--     <record id="book_view_form" model="ir.ui.view">
+<!--   Form Book, Chatter View   -->
+    <record id="book_view_form" model="ir.ui.view">
         <field name="name">library.book.form</field>
-        <field name="model">product.product</field>
+        <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form string="Book">
+                <header>
+                    <field name="x_book_state" widget="statusbar" clickable='1'/>
+                </header>
                 <sheet>
-                    <field name="image_1920" widget='image' class="oe_left oe_avatar"/>
-                    <div class="oe_title oe_left">
-                        <h1>
-                            <field name="name" placeholder="Name"/>
-                        </h1>
-                    </div>
                     <group>
-                        <field name="name"/>
-                        <field name="author_ids" context="{'default_author': True}" widget="many2many_tags"/>
-                        <field name="publisher_id"/>
-                        <field name="edition_date"/>
-                        <field name="isbn"/>
+                        <field name="x_name"/>
+                        <field name="x_author_ids" context="{'default_author': True}" widget="many2many_tags"/>
+                        <field name="x_publisher_id"/>
+                        <field name="x_edition_date"/>
+                        <field name="x_isbn"/>
                     </group>
-                    <notebook>
-                        <page string="Book Copies" name="copies">
-                            <field name="copy_ids"/>
-                        </page>
-                    </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
-    </record> -->
-<!-- 
+    </record>
     <record id="book_view_search" model="ir.ui.view">
         <field name="name">library.book.search</field>
-        <field name="model">product.product</field>
+        <field name="model">library.book</field>
         <field name="arch" type="xml">
             <search string="Books">
-                <field name="name"/>
-                <field name="author_ids"/>
-                <field name="isbn"/>
+                <field name="x_name"/>
+                <field name="x_publisher_id"/>
+                <field name="x_isbn"/>
             </search>
+            
         </field>
     </record>
- -->
+
     
 </odoo>

@@ -5,68 +5,53 @@ from odoo import fields, models, api
 class Books(models.Model):
     _name = 'library.book'
     _description = 'Book'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
-    
-    name = fields.Char(string='Title')
-    lauthor =fields.Char(computer ='_compute_lauthor', store=True)
-    author_ids = fields.Many2many("library.partner", string="Authors")
-    edition_date = fields.Date()
-    isbn = fields.Char(string='ISBN')
-    publisher_id = fields.Many2one('library.publisher', string='Publisher')
+    x_name = fields.Char(string='Title')
+    x_lauthor =fields.Char(computer ='_compute_lauthor',string='lAuthor', store=True)
+    x_author_ids = fields.Many2many("library.partner", string="Authors")
+    x_edition_date = fields.Date(string='Edition_Date')
+    x_isbn = fields.Char(string='ISBN')
+    x_publisher_id = fields.Many2one('library.publisher', string='Publisher')
     
 
 #   copy_ids = fields.One2many('library.copy', 'book_id', string="Book Copies")
-    rental_ids = fields.One2many('library.rental', 'book_id', string='Rentals')
-    is_book = fields.Boolean(string='Is a Book', default=False)   
-    
-#     @api.one
-#     @api.depends('lauthor')
-#     def _compute_lauthor(self):
-#         if self.edition_date:
-#             self.lauthor = fields.Date().today
-#         else: 
-#             return
-        
-    @api.onchange(name)
-    def _onchange(self):
-        if self.name:
-            self.is_book = True
-        else:
-            return
-        
-# class BookCopy(models.Model):
-#     _name = 'library.copy'
-#     _description = 'Book Copy'
-#     _rec_name = 'reference'
+    x_rental_ids = fields.One2many('library.rental', 'x_book_id', string='Rentals')
+    x_is_book = fields.Boolean(string='Is a Book', default=False)
 
-#     book_id = fields.Many2one('product.product', string="Book", domain=[('is_book', "=", True)], required=True, ondelete="cascade", delegate=True)
-#     reference = fields.Char(required=True, string="Ref")
-
-# #     rental_ids = fields.One2many('library.rental', 'copy_id', string='Rentals')
-#     book_state = fields.Selection([('available', 'Available'), ('rented', 'Rented'), ('lost', 'Lost')], default="available")
-    
-#     state = fields.Selection([
-#             ('concept', 'Concept'),
-#             ('started', 'Started'),
-#             ('progress', 'In progress'),
-#             ('finished', 'Done')
-#             ],default='concept')
+    x_book_state = fields.Selection([('concept', 'Concept'),('started', 'Started'),('progress', 'In progress'),('finished', 'Done')],default='concept',string='Book_State')
       
 #     @api.one
-#     def available_progressbar(self):
+#     def concept_progressbar(self):
 #         self.write({
-#         'book_state': 'available',
+#         'x_book_state': 'concept',
 #     })
 
-#     @api.one
-#     def rented_progressbar(self):
-#         self.write({
-#         'book_state': 'rented'
-#     })
+    
+    @api.one
+    @api.depends('x_name')
+    def _compute_lauthor(self):
+        if self.x_author_ids:
+            self.x_lauthor = self.x_author_ids
+        else: 
+            return
+        
+    @api.onchange('x_name')
+    def _onchange(self):
+        if self.x_name:
+            self.x_edition_date = fields.Date().today()
+        else:
+            return
 
-#     @api.one
-#     def lost_progressbar(self):
-#         self.write({
-#         'book_state': 'lost'
-#     })
+        
+class BookCopy(models.Model):
+    _name = 'library.copy'
+    _description = 'Book Copy'
+    _rec_name = 'reference'
 
+    book_id = fields.Many2one('library.book', string="Book", domain=[('x_is_book', "=", True)], required=True, ondelete="cascade", delegate=True)
+    reference = fields.Char(required=True, string="Ref")
+
+#     rental_ids = fields.One2many('library.rental', 'copy_id', string='Rentals')
+    book_state = fields.Selection([('available', 'Available'), ('rented', 'Rented'), ('lost', 'Lost')], default="available")
+    

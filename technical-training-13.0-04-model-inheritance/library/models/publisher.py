@@ -6,4 +6,4 @@ class Editor(models.Model):
     _name = 'library.publisher'
     _description = 'Publisher'
 
-    name = fields.Char()
+    x_name = fields.Char(string='Name')
