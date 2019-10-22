@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
 
+from odoo.exceptions import ValidationError
+
 
 class Books(models.Model):
     _name = 'library.book'
@@ -8,7 +10,7 @@ class Books(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     
     x_name = fields.Char(string='Title')
-    x_lauthor =fields.Char(computer ='_compute_lauthor',string='lAuthor', store=True)
+    x_lauthor = fields.Char(compute ='_compute_lauthor',string='Author', store=True)
     x_author_ids = fields.Many2many("library.partner", string="Authors")
     x_edition_date = fields.Date(string='Edition_Date')
     x_isbn = fields.Char(string='ISBN')
@@ -28,13 +30,23 @@ class Books(models.Model):
 #     })
 
     
-    @api.one
-    @api.depends('x_name')
+#    @api.onchange('x_author_ids')
+#     def _compute_lauthor(self):
+#         raise ValidationError("Asd")
+#         if self.x_author_ids:
+#             self.x_lauthor = self.x_author_ids.x_name
+#         else: 
+#             return
+    @api.depends('x_author_ids')
     def _compute_lauthor(self):
-        if self.x_author_ids:
-            self.x_lauthor = self.x_author_ids
-        else: 
-            return
+        for record in self:
+            if record.x_author_ids:
+                
+                record.x_lauthor = record.x_author_ids.x_name 
+                
+            else: 
+                return
+    
         
     @api.onchange('x_name')
     def _onchange(self):

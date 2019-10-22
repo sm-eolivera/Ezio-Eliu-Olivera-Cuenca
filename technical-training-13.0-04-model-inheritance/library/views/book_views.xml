@@ -56,6 +56,10 @@
                 <field name="x_name"/>
                 <field name="x_publisher_id"/>
                 <field name="x_isbn"/>
+                <filter string = "Name" name="x_name" domain="[('x_name', 'like', '%book%')]"/>
+                <group string="Group By">
+                    <filter name="x_name" string="Name" context="{'group_by': 'x_name'}"/>
+                </group>
             </search>
             
         </field>
