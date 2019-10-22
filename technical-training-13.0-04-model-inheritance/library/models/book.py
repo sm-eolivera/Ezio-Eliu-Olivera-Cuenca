@@ -17,9 +17,9 @@ class Books(models.Model):
     x_publisher_id = fields.Many2one('library.publisher', string='Publisher')
     
 
-#   copy_ids = fields.One2many('library.copy', 'book_id', string="Book Copies")
+    x_copy_ids = fields.One2many('library.copy', 'x_book_id', string="Book Copies")
     x_rental_ids = fields.One2many('library.rental', 'x_book_id', string='Rentals')
-    x_is_book = fields.Boolean(string='Is a Book', default=False)
+    x_is_book = fields.Boolean(string='Is a Book', default=True)
 
     x_book_state = fields.Selection([('concept', 'Concept'),('started', 'Started'),('progress', 'In progress'),('finished', 'Done')],default='concept',string='Book_State')
       
@@ -59,11 +59,11 @@ class Books(models.Model):
 class BookCopy(models.Model):
     _name = 'library.copy'
     _description = 'Book Copy'
-    _rec_name = 'reference'
+    _rec_name = 'x_reference'
 
-    book_id = fields.Many2one('library.book', string="Book", domain=[('x_is_book', "=", True)], required=True, ondelete="cascade", delegate=True)
-    reference = fields.Char(required=True, string="Ref")
+    x_book_id = fields.Many2one('library.book', string="Book", domain=[('x_is_book', "=", True)], required=True, ondelete="cascade", delegate=True)
+    x_reference = fields.Char(required=True, string="Ref")
 
-#     rental_ids = fields.One2many('library.rental', 'copy_id', string='Rentals')
-    book_state = fields.Selection([('available', 'Available'), ('rented', 'Rented'), ('lost', 'Lost')], default="available")
+    x_rental_ids = fields.One2many('library.rental', 'x_copy_id', string='Rentals')
+    x_book_state = fields.Selection([('available', 'Available'), ('rented', 'Rented'), ('lost', 'Lost')], default="available")
     

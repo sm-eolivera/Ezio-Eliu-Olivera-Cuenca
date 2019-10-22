@@ -30,6 +30,7 @@
                 <sheet>
                     <group>
                         <field name="x_customer_id"/>
+                         <field name="x_copy_id"/>
                         <field name="x_book_id"/>
                         <field name="x_rental_date"/>
                         <field name="x_return_date"/>

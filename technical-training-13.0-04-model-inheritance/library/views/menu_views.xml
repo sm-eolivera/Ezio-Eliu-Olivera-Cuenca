@@ -20,6 +20,14 @@
             sequence="10"
             action="library.book_action"
     />
+    
+    <menuitem
+            id="book_copy_menu_action"
+            name="Copy"
+            parent="library.book_menu"
+            sequence="10"
+            action="library.copy_action"
+    />
 
     <menuitem
             id="partner_menu"

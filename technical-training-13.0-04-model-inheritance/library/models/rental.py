@@ -10,7 +10,7 @@ class Rentals(models.Model):
 
     x_customer_id = fields.Many2one('library.partner', string='Customer')
     x_book_id = fields.Many2one('library.book', string='Book')
-    
+    x_copy_id = fields.Many2one('library.copy', string="Book Copy", domain=[('x_book_state', '=', 'available')], required=True)
     x_DateVal = fields.Char(compute ='_compute_dateVal',string='Date', store=True)
 
     x_rental_date = fields.Date(string='Rental_Date')

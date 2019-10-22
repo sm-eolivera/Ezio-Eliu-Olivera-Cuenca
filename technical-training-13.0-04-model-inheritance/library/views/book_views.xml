@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--      -->
+
+<!--   Action Menu   -->
     <record id="book_action" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">library.book</field>
@@ -38,7 +39,13 @@
                         <field name="x_publisher_id"/>
                         <field name="x_edition_date"/>
                         <field name="x_isbn"/>
+                        <field name="x_is_book"/>
                     </group>
+                    <notebook>
+                        <page string="Book Copies" name="copies">
+                            <field name="x_copy_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
@@ -48,6 +55,8 @@
             </form>
         </field>
     </record>
+
+<!--   Search, Filter and GroupBy   -->
     <record id="book_view_search" model="ir.ui.view">
         <field name="name">library.book.search</field>
         <field name="model">library.book</field>
@@ -64,6 +73,70 @@
             
         </field>
     </record>
+    
+<!--  Action Menu Book Copy   -->
+    <record id="copy_action" model="ir.actions.act_window">
+        <field name="name">Book Copies</field>
+        <field name="res_model">library.copy</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+<!--  List Book Copy    -->
+    <record id="copy_view_tree" model="ir.ui.view">
+        <field name="name">library.copy.tree</field>
+        <field name="model">library.copy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="x_reference"/>
+                <field name="x_book_state"/>
+            </tree>
+        </field>
+    </record>
+    
+<!--  Form Book Copy    -->
+    <record id="copy_view_form" model="ir.ui.view">
+        <field name="name">library.copy.form</field>
+        <field name="model">library.copy</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="library.book_view_form"/>
+        <field name="arch" type="xml">
+            <sheet position="before">
+<!--                 <header>
+                    <field name="x_book_state" widget="statusbar" nolabel="1"
+                           statusbar_visible="available,rented,lost"/>
+                </header> -->
+            </sheet>
+            <field name="x_name" position="replace">
+                <field name="x_book_id"/>
+            </field>
+            <field name="x_isbn" position="after">
+                <field name="x_reference"/>
+            </field>
+            <page name="copies" position="replace">
+                <page string="Rentals" name="x_rentals">
+                    <field name="x_rental_ids" readonly="1">
+                        <tree>
+                            <field name="x_customer_id"/>
+                            <field name="x_rental_date"/>
+                            <field name="x_return_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
 
+<!--   Search Book Copy   -->
+    <record id="copy_view_search" model="ir.ui.view">
+        <field name="name">library.copy.search</field>
+        <field name="model">library.copy</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="library.book_view_search"/>
+        <field name="arch" type="xml">
+            <field name="x_isbn" position="after">
+                <field name="x_reference"/>
+            </field>
+        </field>
+    </record>
     
 </odoo>
