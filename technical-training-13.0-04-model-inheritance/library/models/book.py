@@ -41,9 +41,7 @@ class Books(models.Model):
     def _compute_lauthor(self):
         for record in self:
             if record.x_author_ids:
-                
                 record.x_lauthor = record.x_author_ids.x_name 
-                
             else: 
                 return
     

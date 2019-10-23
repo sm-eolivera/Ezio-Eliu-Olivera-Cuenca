@@ -5,6 +5,38 @@
         <field name="res_model">library.partner</field>
         <field name="view_mode">tree,form</field>
     </record>
+    
+    <record id="partner_view_tree" model="ir.ui.view">
+        <field name="name">library.partner.tree</field>
+        <field name="model">library.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="x_name"/>
+                <field name="x_email"/>
+                <field name="x_address"/>
+                <field name="x_partner_type"/>
+                <field name="x_rental_ids"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="partner_view_form" model="ir.ui.view">
+        <field name="name">library.partner.form</field>
+        <field name="model">library.partner</field>
+        <field name="arch" type="xml">
+            <form string="Partner">
+                <sheet>
+                    <group>
+                        <field name="x_name"/>
+                        <field name="x_email"/>
+                        <field name="x_address"/>
+                        <field name="x_partner_type"/>
+                        <field name="x_rental_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <record id="publisher_action" model="ir.actions.act_window">
         <field name="name">Publishers</field>

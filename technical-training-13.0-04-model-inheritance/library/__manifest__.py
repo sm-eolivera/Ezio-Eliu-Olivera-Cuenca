@@ -24,8 +24,9 @@
     'depends':     ['base','mail'],
 
     # always loaded
-    'data':        [
-        "security/ir.model.access.csv",
+    'data':[
+        "security/user_groups.xml",
+        "security/ir.model.access.csv",        
         "views/book_views.xml",
         "views/partner_views.xml",
         "views/rental_views.xml",

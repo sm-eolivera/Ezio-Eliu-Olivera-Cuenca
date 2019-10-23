@@ -27,7 +27,6 @@ class Rentals(models.Model):
     @api.depends('x_return_date')
     def _compute_dateVal(self):
         for record in self:
-            
             if record.x_return_date < fields.Date().today(): 
                 record.x_DateVal = 'Atrasado'
             else: 
