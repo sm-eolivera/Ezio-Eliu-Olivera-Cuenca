@@ -3,6 +3,7 @@ rental_manager_admin,Rental Manager,model_library_rental,library.group_admin,1,1
 publisher_manager_admin,Publisher Manager,model_library_publisher,library.group_admin,1,1,1,1
 partner_manager_admin,Partner Manager,model_library_partner,library.group_admin,1,1,1,1
 book_manager_admin,Book Manager,model_library_book,library.group_admin,1,1,1,1
+price_manager_admin,Price Manager,model_library_price,library.group_admin,1,1,1,1
 rental_manager_user,Rental Manager,model_library_rental,library.group_user,1,1,1,1
 publisher_manager_user,Publisher Manager,model_library_publisher,library.group_user,0,1,1,1
 partner_manager_user,Partner Manager,model_library_partner,library.group_user,0,1,1,1

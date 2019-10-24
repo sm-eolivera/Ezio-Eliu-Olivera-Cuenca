@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--   FORM WIZARD   -->
+    <record id="select_books_view_wizard" model="ir.ui.view">
+        <field name="name">wizard.form</field>
+        <field name="model">library.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Books">
+                <group>
+                    <field name="x_copy_ids" invisible="1"/>
+                    <field name="x_customer_id"/>
+                    <field name="x_return_date" required="True"/>
+                </group>
+                <footer>
+                    <button name="next_step" type="object"
+                            string="Continue" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

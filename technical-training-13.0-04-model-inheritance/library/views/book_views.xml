@@ -101,10 +101,9 @@
         <field name="inherit_id" ref="library.book_view_form"/>
         <field name="arch" type="xml">
             <sheet position="before">
-<!--                 <header>
-                    <field name="x_book_state" widget="statusbar" nolabel="1"
-                           statusbar_visible="available,rented,lost"/>
-                </header> -->
+                <header>
+                    <button string ="Option" type="object"  name="next_step"/>
+                </header> 
             </sheet>
             <field name="x_name" position="replace">
                 <field name="x_book_id"/>

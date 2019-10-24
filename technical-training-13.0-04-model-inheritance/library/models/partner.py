@@ -13,5 +13,3 @@ class Partner(models.Model):
 
     x_rental_ids = fields.One2many('library.rental', 'x_customer_id', string='Rentals')
     
-#         @api.depends('x_name')
-#         def 

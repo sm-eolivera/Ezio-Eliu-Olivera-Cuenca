@@ -65,3 +65,21 @@ class BookCopy(models.Model):
     x_rental_ids = fields.One2many('library.rental', 'x_copy_id', string='Rentals')
     x_book_state = fields.Selection([('available', 'Available'), ('rented', 'Rented'), ('lost', 'Lost')], default="available")
     
+    @api.multi
+    def next_step(self):
+        _library_wizard = self.env.ref('library.select_books_view_wizard').read()[0]
+#         for copy in self.x_copy_ids:
+#             copy.x_rental_ids |= self.env['library.rental'].create({'x_copy_id': copy.id, 'x_customer_id': self.X_customer_id.id, 'x_return_date': self.x_return_date})
+        return {
+            'views': [
+                [_library_wizard['id'],'form'],
+            ],
+            'name':      'Rentals of ',
+            'type':      'ir.actions.act_window',
+            'res_model': 'library.wizard',
+#             'view_mode': 'tree,form',
+#             'view_type': 'form',
+#             'domain':    [('x_state', '=', "draft"), ('x_customer_id', "=", self.x_customer_id.id)],
+            'target':    'new',
+        }
+    

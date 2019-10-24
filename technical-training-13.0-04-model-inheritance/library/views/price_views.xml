@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--  Menu Action    -->
+    <record id="price_action" model="ir.actions.act_window">
+        <field name="name">Price</field>
+        <field name="res_model">library.price</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+<!--   List Price   -->
+    <record id="price_view_tree" model="ir.ui.view">
+        <field name="name">library.price.tree</field>
+        <field name="model">library.price</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="x_name"/>
+                <field name="x_duration" attrs="{'invisible': [('x_type', '=', 'one')]}"/>
+                <field name="x_price"/>
+                <field name="x_type"/>
+            </tree>
+        </field>
+    </record>
+    
+<!--   Form Price   -->
+    <record id="price_view_form" model="ir.ui.view">
+        <field name="name">library.price.form</field>
+        <field name="model">library.price</field>
+        <field name="arch" type="xml">
+            <form string="Price">
+                <sheet>
+                    <group>
+                        <field name="x_name"/>
+                        <field name="x_duration"/>
+                        <field name="x_price"/>
+                        <field name="x_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>
